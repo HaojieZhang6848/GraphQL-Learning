@@ -44,3 +44,34 @@ var GqlEmployeeType = graphql.NewObject(graphql.ObjectConfig{
 		},
 	},
 })
+
+// GqlAccountType 定义GraphQL的账户类型
+var GqlAccountType = graphql.NewObject(graphql.ObjectConfig{
+	Name: "Account",
+	Fields: graphql.Fields{
+		"id":     &graphql.Field{Type: graphql.String},
+		"owner":  &graphql.Field{Type: graphql.String},
+		"amount": &graphql.Field{Type: graphql.Float},
+		"status": &graphql.Field{Type: graphql.String},
+	},
+})
+
+// GQLCreateAccountInputType 定义创建账户的输入类型
+var GQLCreateAccountInputType = graphql.NewInputObject(graphql.InputObjectConfig{
+	Name: "CreateAccountInput",
+	Fields: graphql.InputObjectConfigFieldMap{
+		"owner":  &graphql.InputObjectFieldConfig{Type: graphql.NewNonNull(graphql.String)},
+		"amount": &graphql.InputObjectFieldConfig{Type: graphql.NewNonNull(graphql.Float)},
+	},
+})
+
+// GQLUpdateAccountInputType 定义更新账户的输入类型
+var GQLUpdateAccountInputType = graphql.NewInputObject(graphql.InputObjectConfig{
+	Name: "UpdateAccountInput",
+	Fields: graphql.InputObjectConfigFieldMap{
+		"id":     &graphql.InputObjectFieldConfig{Type: graphql.NewNonNull(graphql.String)},
+		"owner":  &graphql.InputObjectFieldConfig{Type: graphql.String},
+		"amount": &graphql.InputObjectFieldConfig{Type: graphql.Float},
+		"status": &graphql.InputObjectFieldConfig{Type: graphql.String},
+	},
+})

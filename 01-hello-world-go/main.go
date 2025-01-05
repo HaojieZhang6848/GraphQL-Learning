@@ -6,13 +6,14 @@ import (
 	"log"
 	"net/http"
 
-	"github.com/graphql-go/graphql"
 	"01-hello-world-go/types"
+	"github.com/graphql-go/graphql"
 )
 
 // 定义GraphQL Schema
 var schema, _ = graphql.NewSchema(graphql.SchemaConfig{
-	Query: types.GQLQueryType,
+	Query:    types.GQLQueryType,
+	Mutation: types.GQLMutationType,
 })
 
 // 处理GraphQL请求
@@ -27,7 +28,7 @@ func graphqlHandler(w http.ResponseWriter, r *http.Request) {
 		http.Error(w, "Bad Request", http.StatusBadRequest)
 		return
 	}
-	
+
 	// 从请求中获取查询和变量
 	query := mmm["query"].(string)
 	var variables map[string]interface{} = nil
@@ -42,7 +43,7 @@ func graphqlHandler(w http.ResponseWriter, r *http.Request) {
 	// 返回结果
 	if len(result.Errors) > 0 {
 		log.Printf("graphql error: %v", result.Errors)
-		http.Error(w, "Internal Server Error", http.StatusInternalServerError)
+		http.Error(w, fmt.Sprintf("graphql error: %v", result.Errors), http.StatusInternalServerError)
 		return
 	}
 

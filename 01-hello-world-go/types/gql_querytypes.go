@@ -32,5 +32,16 @@ var GQLQueryType = graphql.NewObject(graphql.ObjectConfig{
 			},
 			Resolve: handler.ResolveFibonacci,
 		},
+		"accounts": &graphql.Field{
+			Type: graphql.NewList(GqlAccountType),
+			Resolve: handler.ResolveAccounts,
+		},
+		"accountsByOwner": &graphql.Field{
+			Type: graphql.NewList(GqlAccountType),
+			Args: graphql.FieldConfigArgument{
+				"owner": &graphql.ArgumentConfig{Type: graphql.String},
+			},
+			Resolve: handler.ResolveAccountsByOwner,
+		},
 	},
 })
